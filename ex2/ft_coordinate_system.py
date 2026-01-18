@@ -64,5 +64,6 @@ def test_exercise() -> None:
     print()
     test_example(3)
 
+
 if __name__ == "__main__":
     test_exercise()
