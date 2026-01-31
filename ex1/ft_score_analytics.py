@@ -4,7 +4,8 @@ import sys
 if __name__ == "__main__":
     print("=== Player Score Analytics ===")
     if len(sys.argv) == 1:
-        print("No scores provided. Usage: python3 ft_score_analytics.py <score1> <score2> ...")
+        print("No scores provided. Usage: python3 ft_score_analytics.py "
+              "<score1> <score2> ...")
     else:
         try:
             scores = []
@@ -29,6 +30,6 @@ if __name__ == "__main__":
             min_score = min(scores)
             print(f"Low score: {min_score}")
             range_score = max_score - min_score
-            print(f"Score range: {range_score}")         
+            print(f"Score range: {range_score}")
         except ValueError:
             print("Invalid input")

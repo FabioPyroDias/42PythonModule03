@@ -1,8 +1,10 @@
 if __name__ == "__main__":
     print("=== Achievement Tracker System ===")
+    print()
     alice = set(('first_kill', 'level_10', 'treasure_hunter', 'speed_demon'))
     bob = set(('first_kill', 'level_10', 'boss_slayer', 'colletor'))
-    charlie = set(('level_10', 'treasure_hunter', 'boss_slayer', 'speed_demon', 'perfectionist'))
+    charlie = set(('level_10', 'treasure_hunter', 'boss_slayer',
+                   'speed_demon', 'perfectionist'))
     print(f"Player alice achievements: {alice}")
     print(f"Player bob achievements: {bob}")
     print(f"Player charlie achievements: {charlie}")
@@ -17,7 +19,10 @@ if __name__ == "__main__":
     intersection_ab = alice.intersection(bob)
     intersection_ac = alice.intersection(charlie)
     intersection_bc = bob.intersection(charlie)
-    unique_achievements = all_achievements.difference(common_achievements, intersection_ab, intersection_ac, intersection_bc)
+    unique_achievements = all_achievements.difference(common_achievements,
+                                                      intersection_ab,
+                                                      intersection_ac,
+                                                      intersection_bc)
     print(f"Rare achievements (1 player): {unique_achievements}")
     print()
     print(f"Alice vs Bob common: {intersection_ab}")

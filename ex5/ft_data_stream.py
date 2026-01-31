@@ -1,9 +1,9 @@
 import time
 
 
-def generator(number_of_events: int):
+def generator():
     current_event = 1
-    while current_event <= number_of_events:
+    while True:
         player = ""
         level = 0
         event = ""
@@ -23,12 +23,12 @@ def generator(number_of_events: int):
         yield player, level, event
 
 
-def fibonacci(number_of_elements: int):
+def fibonacci():
     result = 0
     previous = 0
     current = 1
     number = 0
-    while number < number_of_elements:
+    while True:
         yield result
         previous = result
         result = current
@@ -36,10 +36,10 @@ def fibonacci(number_of_elements: int):
         number += 1
 
 
-def prime(number_of_elements: int):
+def prime():
     current_prime = 2
     current_element = 0
-    while current_element < number_of_elements:
+    while True:
         number = 2
         while number < current_prime:
             if current_prime % number == 0:
@@ -54,16 +54,18 @@ def prime(number_of_elements: int):
 if __name__ == "__main__":
     print("=== Game Data Stream Processor ===")
     current_event = 1
-    max_event = 3
+    max_event = 1000
     print(f"Processing {max_event} game events...")
-    iterator = iter(generator(max_event))
+    iterator = iter(generator())
     high_level_players = 0
     treasure_events = 0
     level_up_events = 0
     processing_time = time.time()
     while current_event <= max_event:
         player, level, event = next(iterator)
-        print(f"Event {current_event}: Player {player} (level {level}) {event}")
+        if (current_event <= 3):
+            print(f"Event {current_event}: Player {player} (level {level}) "
+                  f"{event}")
         current_event += 1
         if level >= 10:
             high_level_players += 1
@@ -87,7 +89,7 @@ if __name__ == "__main__":
     fibonacci_elements = 10
     fibonacci_current_element = 0
     fibonacci_str = ""
-    fibonacci_iterator = iter(fibonacci(fibonacci_elements))
+    fibonacci_iterator = iter(fibonacci())
     while fibonacci_current_element < fibonacci_elements:
         fibonacci_str += f"{next(fibonacci_iterator)}"
         fibonacci_current_element += 1
@@ -97,7 +99,7 @@ if __name__ == "__main__":
     prime_elements = 5
     prime_current_element = 0
     prime_str = ""
-    prime_iterator = iter(prime(prime_elements))
+    prime_iterator = iter(prime())
     while prime_current_element < prime_elements:
         prime_str += f"{next(prime_iterator)}"
         prime_current_element += 1

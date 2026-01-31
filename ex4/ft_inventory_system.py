@@ -25,44 +25,52 @@ if __name__ == "__main__":
     print(f"Total items in inventory: {number_of_occorrunces}")
     print(f"Unique item types: {number_of_items}")
     print()
-    print(f"=== Current Inventory ===")
+    print("=== Current Inventory ===")
+    inventory_copy = {}
     for item in inventory.items():
+        inventory_copy.update({item[0]: item[1]})
+    inventory_sorted = {}
+    current_items_in_inventory = 0
+    sorted_max_items = len(inventory.keys())
+    while current_items_in_inventory < sorted_max_items:
+        item_to_be_transfered = None
+        max_value = -1
+        for item in inventory_copy.items():
+            key, value = item
+            if (value > max_value):
+                item_to_be_transfered = item
+                max_value = value
+        inventory_sorted.update({
+            item_to_be_transfered[0]: item_to_be_transfered[1]})
+        inventory_copy[item_to_be_transfered[0]] = -1
+        current_items_in_inventory += 1
+    for item in inventory_sorted.items():
         key, value = item
-        print(f"{key}: {value} units ({(value/number_of_occorrunces)*100:.1f}%)")
+        print(f"{key}: {value} units "
+              f"({(value/number_of_occorrunces)*100:.1f}%)")
     print()
     print("=== Inventory Statistics ===")
-    item_index = 0
-    min_occorrunces = 0
-    min_occorrunces_str = ""
-    max_occorrunces = 0
+    max_occorrunces_item = list(inventory_sorted.items())[0]
     max_occorrunces_str = ""
-    for item in inventory.items():
-        key, value = item
-        if item_index == 0:
-            min_occorrunces = value
-            max_occorrunces = value
-            if value == 1:
-                min_occorrunces_str = f"{key} ({value} unit)"
-                max_occorrunces_str = f"{key} ({value} unit)"
+    if max_occorrunces_item[1] == 1:
+        max_occorrunces_str = (f"{max_occorrunces_item[0]} ("
+                               f"{max_occorrunces_item[1]} unit)")
+    else:
+        max_occorrunces_str = (f"{max_occorrunces_item[0]} ("
+                               f"{max_occorrunces_item[1]} units)")
+    min_value = max_occorrunces_item[1]
+    min_occorrunces_str = ""
+    for item in inventory_sorted.items():
+        if item[1] < min_value:
+            if item[1] == 1:
+                min_occorrunces_str = (f"{item[0]} ("
+                                       f"{item[1]} unit)")
             else:
-                min_occorrunces_str = f"{key} ({value} units)"
-                max_occorrunces_str = f"{key} ({value} unit)"
-        else:
-            if min_occorrunces > value:
-                min_occorrunces = value
-                if value == 1:
-                    min_occorrunces_str = f"{key} ({value} unit)"
-                else:
-                    min_occorrunces_str = f"{key} ({value} units)"
-            if max_occorrunces < value:
-                max_occorrunces = value
-                if value == 1:
-                    max_occorrunces_str = f"{key} ({value} unit)"
-                else:
-                    max_occorrunces_str = f"{key} ({value} units)"
-        item_index += 1
+                min_occorrunces_str = (f"{item[0]} ("
+                                       f"{item[1]} units)")
+            min_value = item[1]
     print(f"Most abundant: {max_occorrunces_str}")
-    print(f"Least abundant:{min_occorrunces_str}")
+    print(f"Least abundant: {min_occorrunces_str}")
     print()
     print("=== Item Categories ===")
     scarce_inventory = {}
@@ -87,4 +95,5 @@ if __name__ == "__main__":
     print("=== Dictionary Properties Demo ===")
     print(f"Dictionary keys: {inventory.keys()}")
     print(f"Dictionary values: {inventory.values()}")
-    print(f"Sample lookup - 'sword' in inventory: {bool(inventory.get('sword'))}")
+    print(f"Sample lookup - 'sword' in inventory: "
+          f"{bool(inventory.get('sword'))}")
